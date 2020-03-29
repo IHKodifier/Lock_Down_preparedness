@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "931447630600",
+    "firebase_url": "https://lockdown-response.firebaseio.com",
+    "project_id": "lockdown-response",
+    "storage_bucket": "lockdown-response.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:931447630600:android:ecda429252669717ac5abd",
+        "android_client_info": {
+          "package_name": "EnigmaTek.Inc.lockdown_response"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "931447630600-jul6qcmtau1u9egmgpemtc95oujbu72c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBFeswFnSMOn0ckUE5xiKnLhRT4wanZ6GY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "931447630600-jul6qcmtau1u9egmgpemtc95oujbu72c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
