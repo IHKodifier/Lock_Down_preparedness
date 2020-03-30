@@ -1,5 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:path/path.dart';
+import 'dart:io';
 
 class Violation extends StatefulWidget {
   @override
@@ -7,43 +11,44 @@ class Violation extends StatefulWidget {
 }
 
 class _ViolationState extends State<Violation> {
-  bool _fileSelected;
-
+  File _image;
   @override
   void initState() {
     super.initState();
-    _fileSelected = false;
   }
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.all(8),
-          child: Container(
-            child: Column(
-              children: <Widget>[
-                buildMediaPlaceholder(),
-                buildCameraIconButton(),
-                buildDisclaimer(context),
-                buildUploadButton(context),
-                _buildViolationList(),
-              ],
+    return Builder(builder: (context) {
+      return ListView(
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.all(8),
+            child: Container(
+              child: Column(
+                children: <Widget>[
+                  buildMediaPlaceholder(),
+                  buildCameraIconButton(context),
+                  buildDisclaimer(context),
+                  buildUploadButton(context),
+                  _buildViolationList(context),
+                ],
+              ),
             ),
           ),
-        ),
-      ],
-    );
+        ],
+      );
+    });
   }
 
   Widget buildUploadButton(BuildContext context) {
-    if (_fileSelected == true) {
+    if (_image != null) {
       return Padding(
           padding: const EdgeInsets.all(4.0),
           child: RaisedButton(
               onPressed: () {
-                _addDumyViolation();
+                // _addDumyViolation();
+                _uploadMedia(context);
               },
               color: Theme.of(context).primaryColor,
               child: Text(
@@ -67,37 +72,42 @@ class _ViolationState extends State<Violation> {
     );
   }
 
-  IconButton buildCameraIconButton() {
+  IconButton buildCameraIconButton(context) {
     return IconButton(
       icon: Icon(
         Icons.add_a_photo,
         size: 50,
+        color: Theme.of(context).primaryColor,
       ),
       onPressed: () {
-        setState(() {
-          _fileSelected = !_fileSelected;
-        });
+        _getImage();
       },
     );
   }
 
   Widget buildMediaPlaceholder() {
-    if (_fileSelected == true) {
-      return Placeholder(
-        fallbackHeight: 120,
+    if (_image != null) {
+      return Container(
+        height: 100,
+        width: 80,
+        child: Image.file(
+          _image,
+          fit: BoxFit.contain,
+        ),
       );
     } else {
-      return SizedBox(
-        height: 120,
+      return  Container(
+        height: 100,
+        width: 80,
+        child: Text('No media selected'),
       );
     }
   }
 
-  _buildViolationList() {
+  _buildViolationList(BuildContext context) {
     return Container(
       height: 500,
       width: MediaQuery.of(context).size.width,
-      // width: 350,
       child: StreamBuilder(
         stream: Firestore.instance.collection('violations').snapshots(),
         builder: (context, snapshot) {
@@ -118,7 +128,10 @@ class _ViolationState extends State<Violation> {
                   return Card(
                     elevation: 3,
                     child: ListTile(
-                      title: Text('violation at Islamabad  on ' + _timestamp),
+                      title: Text('violation at \"' +
+                          snapshot.data.documents[index]['city'] +
+                          '\" on ' +
+                          _timestamp),
                     ),
                   );
                   // Times
@@ -131,9 +144,22 @@ class _ViolationState extends State<Violation> {
     );
   }
 
-  void _addDumyViolation() {
-    Firestore.instance
-        .collection('violations')
-        .add({'timestamp': DateTime.now(), 'city': 'Islamabad'});
+  Future _uploadMedia(BuildContext context) async {
+    String _fileName = basename(_image.path);
+    StorageReference _storageRef =
+        FirebaseStorage.instance.ref().child(_fileName);
+    StorageUploadTask _uploadTask = _storageRef.putFile(_image);
+    StorageTaskSnapshot _taskSnapshot = await _uploadTask.onComplete;
+    setState(() {
+      print('$_fileName  saved to firebase');
+    });
+  }
+
+  Future _getImage() async {
+    var _pickedImage = await ImagePicker.pickImage(source: ImageSource.camera);
+    setState(() {
+      _image = _pickedImage;
+      print('image path = $_image');
+    });
   }
 }

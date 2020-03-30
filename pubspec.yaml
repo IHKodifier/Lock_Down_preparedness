@@ -10,6 +10,9 @@ dependencies:
   flutter:
     sdk: flutter
   cloud_firestore:
+  firebase_storage:
+  image_picker:
+  path_provider:
 
   cupertino_icons: ^0.1.2
 
