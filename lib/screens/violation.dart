@@ -12,6 +12,7 @@ class Violation extends StatefulWidget {
 
 class _ViolationState extends State<Violation> {
   File _image;
+
   @override
   void initState() {
     super.initState();
@@ -96,10 +97,10 @@ class _ViolationState extends State<Violation> {
         ),
       );
     } else {
-      return  Container(
+      return Container(
         height: 100,
         width: 80,
-        child: Text('No media selected'),
+        child: Center(child: Text('No media selected')),
       );
     }
   }
@@ -145,13 +146,16 @@ class _ViolationState extends State<Violation> {
   }
 
   Future _uploadMedia(BuildContext context) async {
-    String _fileName = basename(_image.path);
+    String _fileName = DateTime.now().toString();
+    // basename(_image.path);
     StorageReference _storageRef =
         FirebaseStorage.instance.ref().child(_fileName);
     StorageUploadTask _uploadTask = _storageRef.putFile(_image);
     StorageTaskSnapshot _taskSnapshot = await _uploadTask.onComplete;
     setState(() {
-      print('$_fileName  saved to firebase');
+      print('*************************************************************');
+      print('your image named  \n $_fileName  \n has been saved to firebase\n');
+      print('*************************************************************');
     });
   }
 

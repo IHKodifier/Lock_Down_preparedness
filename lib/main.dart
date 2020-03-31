@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Lock Down Preparedness',
       theme: ThemeData(
-          primarySwatch: Colors.teal, scaffoldBackgroundColor: Colors.white),
+          primarySwatch: Colors.purple, scaffoldBackgroundColor: Colors.white),
       home: AppHomePage(),
     );
   }
