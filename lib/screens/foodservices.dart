@@ -10,7 +10,18 @@ class _BrowseFoodServicesState extends State<BrowseFoodServices> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
+        elevation: 2.0,
+        title: Text(
+          'Food/ ration services',
+          style: TextStyle(
+            color: Theme.of(context).primaryColor,
+          ),
+        ),
+        centerTitle: true,
+        backgroundColor: Colors.white,
+      ),
       body: StreamBuilder(
           stream: Firestore.instance
               .collection('cities')
@@ -41,7 +52,8 @@ class _BrowseFoodServicesState extends State<BrowseFoodServices> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
                                 Padding(
-                                  padding: const EdgeInsets.only(left:8.0, top: 8),
+                                  padding:
+                                      const EdgeInsets.only(left: 8.0, top: 8),
                                   child: Text(
                                     snapshot.data.documents[index]['city'],
                                     style: Theme.of(context)
@@ -50,12 +62,12 @@ class _BrowseFoodServicesState extends State<BrowseFoodServices> {
                                         .copyWith(
                                             fontWeight: FontWeight.bold,
                                             fontSize: 18,
-                                            color: Colors.black),
+                                            color:
+                                                Theme.of(context).primaryColor),
                                   ),
                                 ),
-                                _buildPopulation(context, snapshot.data.documents[index]),
-                               
-
+                                _buildPopulation(
+                                    context, snapshot.data.documents[index]),
                               ],
                             ),
                           ),
@@ -94,7 +106,8 @@ class _BrowseFoodServicesState extends State<BrowseFoodServices> {
             style: Theme.of(context)
                 .textTheme
                 .title
-                .copyWith(fontSize: 16, fontWeight: FontWeight.bold),
+                .copyWith(fontSize: 16, fontWeight: FontWeight.bold,
+                color: Theme.of(context).primaryColor),
           ),
         ),
       ),
@@ -104,20 +117,24 @@ class _BrowseFoodServicesState extends State<BrowseFoodServices> {
   _buildPopulation(BuildContext context, DocumentSnapshot snapshot) {
     if (snapshot['population'] == '') {
       return Padding(
-        padding: const EdgeInsets.only(left:16,),
+        padding: const EdgeInsets.only(
+          left: 16,
+        ),
         child: Text(
           'population :not available',
           style: Theme.of(context).textTheme.subtitle.copyWith(
-              fontStyle: FontStyle.italic, fontSize: 14, color: Colors.black54),
+              fontStyle: FontStyle.italic, fontSize: 14, color: Theme.of(context).accentColor),
         ),
       );
     } else {
       return Padding(
-        padding: const EdgeInsets.only(left:16,),
+        padding: const EdgeInsets.only(
+          left: 16,
+        ),
         child: Text(
           'population: ' + snapshot['population'],
           style: Theme.of(context).textTheme.subtitle.copyWith(
-              fontStyle: FontStyle.italic, fontSize: 14, color: Colors.black54),
+              fontStyle: FontStyle.italic, fontSize: 14, color: Theme.of(context).accentColor),
         ),
       );
     }

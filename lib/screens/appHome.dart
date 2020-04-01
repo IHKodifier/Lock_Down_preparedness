@@ -11,25 +11,15 @@ class AppHomePage extends StatefulWidget {
 class _AppHomePageState extends State<AppHomePage>
     with SingleTickerProviderStateMixin {
   TabController _tabcontroller;
-  int fabIndex=2;
+  int fabIndex = 2;
   List<Tab> _tabs = <Tab>[];
   List<Widget> _tabViews = [];
-  final List<FloatingActionButton> fabs = [null,
-  null,
-  FloatingActionButton(
-    child: Icon(Icons.add),
-    onPressed: (){}
-    
-    ),
-        
-    ];
-  
-  
-  
-  
+   List<FloatingActionButton> fabs=[];
+
   @override
   void initState() {
     super.initState();
+    BuildContext localcontext = this.context;
     _tabcontroller = TabController(length: 3, vsync: this, initialIndex: 0);
     _tabs = [
       Tab(
@@ -61,14 +51,23 @@ class _AppHomePageState extends State<AppHomePage>
   void dispose() {
     _tabcontroller.dispose();
     super.dispose();
-    
   }
 
   @override
   Widget build(BuildContext context) {
+    fabs = [
+    null,
+    null,
+    FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: () {
+          Navigator.pushNamed(context, '/addFoodService');
+        }),
+  ];
     return Scaffold(
       drawer: Drawer(),
       appBar: AppBar(
+        iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
         elevation: 2.0,
         title: Text(
           'Lock Down Preparedness',
@@ -79,10 +78,12 @@ class _AppHomePageState extends State<AppHomePage>
         centerTitle: true,
         backgroundColor: Colors.white,
         bottom: TabBar(
-            tabs: _tabs,
-            controller: _tabcontroller,
-            labelColor: Theme.of(context).primaryColor,
-            indicatorColor: Theme.of(context).accentColor),
+          tabs: _tabs,
+          controller: _tabcontroller,
+          labelColor: Theme.of(context).primaryColor,
+          indicatorColor: Theme.of(context).accentColor,
+          indicatorWeight: 6,
+        ),
       ),
       body: TabBarView(children: _tabViews, controller: _tabcontroller),
       floatingActionButton: fabs[fabIndex],
