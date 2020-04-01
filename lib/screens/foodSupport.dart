@@ -23,21 +23,29 @@ class _FoodSupportState extends State<FoodSupport> {
               SizedBox(
                 height: 20,
               ),
-              Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: RaisedButton(
-                  onPressed: () {
-                    _uploadData(context);
-                  },
-                  color: Theme.of(context).primaryColor,
-                  child: Text(
-                    'Add cities collection',
-                    style: TextStyle(color: Colors.white, fontSize: 16),
-                  ),
-                ),
-              ),
+              // Padding(
+              //   padding: const EdgeInsets.all(12.0),
+              //   child: RaisedButton(
+              //     onPressed: () {
+              //       _uploadData(context);
+              //     },
+              //     color: Theme.of(context).primaryColor,
+              //     child: Text(
+              //       'Add cities collection',
+              //       style: TextStyle(color: Colors.white, fontSize: 16),
+              //     ),
+              //   ),
+              // ),
               SizedBox(
                 height: 20,
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width,
+                height: 160,
+                child: Padding(
+                  padding: const EdgeInsets.all(32.0),
+                  child: Text('On this page  you can \n (a)  ADD \"FREE\" services that provide food/ ration for the destitute during this  lockdown \n (b) search for available services'),
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.all(12.0),
@@ -50,7 +58,7 @@ class _FoodSupportState extends State<FoodSupport> {
                   },
                   color: Theme.of(context).primaryColor,
                   child: Text(
-                    'Browse  Food Support Services',
+                    'Browse  Services by city',
                     style: TextStyle(color: Colors.white, fontSize: 16),
                   ),
                 ),

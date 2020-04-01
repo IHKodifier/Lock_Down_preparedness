@@ -15,10 +15,14 @@ class _AppHomePageState extends State<AppHomePage>
   List<Tab> _tabs = <Tab>[];
   List<Widget> _tabViews = [];
   final List<FloatingActionButton> fabs = [null,
-  null,null,
+  null,
   FloatingActionButton(
     child: Icon(Icons.add),
-    onPressed: (){})];
+    onPressed: (){}
+    
+    ),
+        
+    ];
   
   
   
@@ -63,7 +67,7 @@ class _AppHomePageState extends State<AppHomePage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
+      drawer: Drawer(),
       appBar: AppBar(
         elevation: 2.0,
         title: Text(
@@ -82,6 +86,7 @@ class _AppHomePageState extends State<AppHomePage>
       ),
       body: TabBarView(children: _tabViews, controller: _tabcontroller),
       floatingActionButton: fabs[fabIndex],
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 }
