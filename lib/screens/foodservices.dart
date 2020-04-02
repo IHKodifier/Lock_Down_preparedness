@@ -37,38 +37,30 @@ class _BrowseFoodServicesState extends State<BrowseFoodServices> {
                   itemCount: snapshot.data.documents.length,
                   itemBuilder: (context, index) {
                     return Container(
-                      height: 100,
+                      height: 80,
                       child: Padding(
                         padding: const EdgeInsets.all(6.0),
                         child: Card(
                           // color: Colors.white70,
-                          elevation: 5,
+                          elevation: 3,
 
                           child: ListTile(
                             leading: _buildProvinceAvatar(context,
                                 snapshot.data.documents[index]['admin']),
-                            title: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.only(left: 8.0, top: 8),
-                                  child: Text(
-                                    snapshot.data.documents[index]['city'],
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .title
-                                        .copyWith(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 18,
-                                            color:
-                                                Theme.of(context).primaryColor),
-                                  ),
-                                ),
-                                _buildPopulation(
-                                    context, snapshot.data.documents[index]),
-                              ],
+                            title: Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 12.0, ),
+                              child: Text(
+                                snapshot.data.documents[index]['city'],
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .title
+                                    .copyWith(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 18,
+                                        color:
+                                            Theme.of(context).primaryColor),
+                              ),
                             ),
                           ),
                         ),
@@ -95,10 +87,10 @@ class _BrowseFoodServicesState extends State<BrowseFoodServices> {
 
   _buildProvinceAvatar(BuildContext context, String province) {
     return ClipRRect(
-      borderRadius: BorderRadius.circular(25),
+      borderRadius: BorderRadius.circular(20),
       child: Container(
-        height: 50,
-        width: 50,
+        height: 40,
+        width: 40,
         color: _colorSelector[province],
         child: Center(
           child: Text(
@@ -114,29 +106,5 @@ class _BrowseFoodServicesState extends State<BrowseFoodServices> {
     );
   }
 
-  _buildPopulation(BuildContext context, DocumentSnapshot snapshot) {
-    if (snapshot['population'] == '') {
-      return Padding(
-        padding: const EdgeInsets.only(
-          left: 16,
-        ),
-        child: Text(
-          'population :not available',
-          style: Theme.of(context).textTheme.subtitle.copyWith(
-              fontStyle: FontStyle.italic, fontSize: 14, color: Theme.of(context).accentColor),
-        ),
-      );
-    } else {
-      return Padding(
-        padding: const EdgeInsets.only(
-          left: 16,
-        ),
-        child: Text(
-          'population: ' + snapshot['population'],
-          style: Theme.of(context).textTheme.subtitle.copyWith(
-              fontStyle: FontStyle.italic, fontSize: 14, color: Theme.of(context).accentColor),
-        ),
-      );
-    }
-  }
+  
 }

@@ -13,6 +13,7 @@ dependencies:
   firebase_storage:
   image_picker:
   path_provider:
+  google_fonts:
 
   cupertino_icons: ^0.1.2
 

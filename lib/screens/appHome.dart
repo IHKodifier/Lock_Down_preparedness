@@ -59,7 +59,11 @@ class _AppHomePageState extends State<AppHomePage>
     null,
     null,
     FloatingActionButton(
-        child: Icon(Icons.add),
+        backgroundColor: Theme.of(context).primaryColor,
+        tooltip:'Add a food service',
+        child: Icon(Icons.add,
+        size: 30,
+        color: Colors.white,),
         onPressed: () {
           Navigator.pushNamed(context, '/addFoodService');
         }),
@@ -86,7 +90,7 @@ class _AppHomePageState extends State<AppHomePage>
         ),
       ),
       body: TabBarView(children: _tabViews, controller: _tabcontroller),
-      floatingActionButton: fabs[fabIndex],
+      floatingActionButton:  fabs[fabIndex],
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
